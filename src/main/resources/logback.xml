@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 已经打开自动扫描功能，所以在系统启动后可以直接修改此文件，无需重启服务器 -->
+<configuration scan="true" scanPeriod="10 seconds" debug="true">
+
+	<!-- 日志存储根目录 -->
+	<substitutionProperty name="log.base" value="/data/logs/backend/logs" />
+	
+	<!-- 控制台输出 -->
+	<appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<charset>UTF-8</charset>
+			<Pattern>%date|[%thread]|[%X{traceid}]|%-5level|%logger{80}-[%file:%line]|%msg%n</Pattern>
+		</encoder>
+	</appender>
+	
+	<!-- DEBUG级别，增量式文件输出 -->
+	<appender name="file—debug" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+             <level>DEBUG</level>
+             <onMatch>ACCEPT</onMatch>
+             <onMismatch>DENY </onMismatch>
+        </filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<!--在工程目录下自动生成logs文件夹 -->
+			<FileNamePattern>${log.base}/debug.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<!-- 最多180个文件 -->
+			<MaxHistory>180</MaxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<Pattern>%date|[%thread]|[%X{traceid}]|%-5level|%logger{80}-[%file:%line]|%msg%n</Pattern>
+		</encoder>
+	</appender>
+	
+	<!-- INFO级别，增量式文件输出 -->
+   	<appender name="file—info"	class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+             <level>INFO</level>
+             <onMatch>ACCEPT</onMatch>
+             <onMismatch>DENY</onMismatch>
+        </filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}/info.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<MaxHistory>180</MaxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<Pattern>%date|[%thread]|[%X{traceid}]|%-5level|%logger{80}-[%file:%line]|%msg%n</Pattern>
+		</encoder>
+	</appender>
+	
+	
+	<!-- ERROR级别，增量式文件输出 -->
+	<appender name="file—error" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+             <level>ERROR</level>
+             <onMatch>ACCEPT</onMatch>
+             <onMismatch>DENY </onMismatch>
+        </filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<FileNamePattern>${log.base}/error.%d{yyyy-MM-dd}.log</FileNamePattern>
+			<MaxHistory>180</MaxHistory>
+		</rollingPolicy>
+		<encoder>
+			<charset>UTF-8</charset>
+			<Pattern>%date|[%thread]|[%X{traceid}]|%-5level|%logger{80}-[%file:%line]|%msg%n</Pattern>
+		</encoder>
+	</appender>
+	   
+    <!-- log configure --> 
+    <logger name="com.apache.ibatis" level="INFO"/>
+    <logger name="java.sql.Connection" level="INFO"/>
+    <logger name="java.sql.Statement" level="INFO"/>
+    <logger name="java.sql.PreparedStatement" level="INFO"/>
+	<logger name="com.timorjun" level="INFO"/>
+	<logger name="io.netty" level="INFO"/>
+	<logger name="org.apache.zookeeper.ClientCnxn" level="INFO"/>
+	<logger name="org.apache.activemq" level="INFO"/>
+	<logger name="org.springframework" level="INFO"/>
+    　　<!-- 日志配置，日志的等级从低到高分为：
+　　		 DEBUG  INFO  WARN  ERROR
+	-->
+	<root>
+		<level value="DEBUG" />
+		<appender-ref ref="STDOUT" />
+		<appender-ref ref="file—info"/>
+		<appender-ref ref="file—debug"/>
+		<appender-ref ref="file—error"/>
+	</root>
+	
+</configuration>
