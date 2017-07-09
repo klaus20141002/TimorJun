@@ -26,5 +26,7 @@ import com.timorjun.taobao.model.TaobaoFavoriteItem;
  *
  */
 public interface TaobaoFavoriteRepository extends JpaRepository<TaobaoFavoriteItem,Long>{
+	
+	
 
 }
