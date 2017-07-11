@@ -1,5 +1,6 @@
 package com.timorjun.solr.webmagic;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
@@ -49,7 +50,9 @@ public class JDPipeline implements Pipeline {
                 }catch (Exception e){
                 }
                 p.setId(links.get(i));
-                p.setCategory(category);
+                List<String> categorys = new ArrayList<String>();
+                categorys.add(category);
+                p.setCategory(categorys);
                 p.setCreate(new Date());
                 p.setUpdate(new Date());
                 productService.save(p);

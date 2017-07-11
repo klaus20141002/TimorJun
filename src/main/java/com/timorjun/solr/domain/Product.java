@@ -1,10 +1,11 @@
 package com.timorjun.solr.domain;
 
+import java.util.Date;
+import java.util.List;
+
 import org.apache.solr.client.solrj.beans.Field;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.solr.core.mapping.SolrDocument;
-
-import java.util.Date;
 
 @SolrDocument(solrCoreName="product") // Solr collection name
 public class Product {
@@ -14,19 +15,27 @@ public class Product {
     @Field
     private String name;
     @Field
+    private List<String> category; //分类
+    @Field
     private String pic;
     @Field
     private double price;
     @Field
-    private long comment;
+    private long comment;//评论数
     @Field
     private Date create;
     @Field
     private Date update;
-    @Field
-    private String category;
 
-    public String getId() {
+    public List<String> getCategory() {
+		return category;
+	}
+
+	public void setCategory(List<String> category) {
+		this.category = category;
+	}
+
+	public String getId() {
         return id;
     }
 
@@ -65,16 +74,7 @@ public class Product {
     public void setComment(long comment) {
         this.comment = comment;
     }
-
-    public String getCategory() {
-        return category;
-    }
-
-    public void setCategory(String category) {
-        this.category = category;
-    }
-
-    public Date getCreate() {
+	public Date getCreate() {
         return create;
     }
 

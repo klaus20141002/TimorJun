@@ -63,7 +63,7 @@ public class TaobaoFavoriteItem {
 	private String click_long_url; // 淘客地址 实际分销地址 如果该宝贝取自普通的选品组，则取值为1970-01-01 00:00:00
 	private String status; // 宝贝状态，0失效，1有效；注：失效可能是宝贝已经下线或者是被处罚不能在进行推广
 	private String type; // 宝贝类型，1 普通商品 2 鹊桥高佣金商品，3 定向招商商品
-	private Long category; // 后台一级类目
+	private String category; // 后台一级类目
 	private String taokouling; // 淘口令(30天内有效)
 	@Column(name="coupon_click_url",length=500)
 	private String coupon_click_url;// 商品优惠券推广链接
@@ -120,7 +120,7 @@ public class TaobaoFavoriteItem {
 			String zk_final_price, String zk_final_price_wap, String user_type, String provcity, String item_url,
 			String click_url, String shop_title, Long seller_id, String nick, Integer volume, String tk_rate,
 			String commission_rate, Timestamp event_start_time, Timestamp event_end_time, String status, String type,
-			Long category, String coupon_click_url, String coupon_info, Long coupon_total_count,
+			String category, String coupon_click_url, String coupon_info, Long coupon_total_count,
 			Long coupon_remain_count, Date coupon_start_time, Date coupon_end_time, Date create_time,
 			Date last_update_time) {
 		super();
@@ -283,10 +283,10 @@ public class TaobaoFavoriteItem {
 	public void setType(String type) {
 		this.type = type;
 	}
-	public Long getCategory() {
+	public String getCategory() {
 		return category;
 	}
-	public void setCategory(Long category) {
+	public void setCategory(String category) {
 		this.category = category;
 	}
 	public String getCoupon_click_url() {

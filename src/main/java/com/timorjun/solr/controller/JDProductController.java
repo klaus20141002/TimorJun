@@ -43,7 +43,7 @@ public class JDProductController {
         try {
             PageRequest pageable = getPageRequest(request);
             Page<Product> query = productService.query(queryString, pageable);
-            List list = query.getContent();
+            List<Product> list = query.getContent();
             stringObjectHashMap.put("results", list);
             stringObjectHashMap.put("totalElements", query.getTotalElements());
         } catch (Exception e) {
