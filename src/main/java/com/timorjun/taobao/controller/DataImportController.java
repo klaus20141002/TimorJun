@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.apache.commons.lang3.StringUtils;
@@ -112,6 +113,7 @@ public class DataImportController {
 			    t.setCoupon_taokouling(coupon_taokouling);
 			    String coupon_click_url = row.getCell(25)!=null?row.getCell(25).getStringCellValue():null;
 			    t.setCoupon_click_url(coupon_click_url);
+			    t.setLast_update_time(new Date());
 			    list.add(t);
 			}
 
