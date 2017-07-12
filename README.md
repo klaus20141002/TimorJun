@@ -28,3 +28,14 @@ tomcat 在web.xml中配置的  <env-entry-value>F:\solr_home</env-entry-value> �
 
 启动DemoApplication.main 
 http://localhost:8111/index 查看和搜索
+
+
+
+
+#生产环境打包
+mvn clean package -P prod -Dmaven.test.skip=true
+
+
+
+
+
