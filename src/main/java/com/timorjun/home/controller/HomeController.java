@@ -56,9 +56,20 @@ public class HomeController {
 		
 		PageRequest page = new PageRequest(pageNo, pageSize) ;
 		logger.info("loading goods {}" , result);
-		Page<TaobaoDailyChooiseItem>  goods = dataImportService.queryTaobaoDailyChooiseItemList(page) ;
-		return JsonData.success(goods, "", 0) ;
+		try {
+			Page<TaobaoDailyChooiseItem>  goods = dataImportService.queryTaobaoDailyChooiseItemList(page) ;
+			return JsonData.success(goods, "success", 0) ;
+		} catch (Exception e) {
+			logger.error("QueryTaobaoDailyChooiseItemList ERROR",e);
+			return JsonData.success(null, "failure", -1) ;
+		}
 	}
+	
+	
+	
+	
+	
+	
 	
 	
 

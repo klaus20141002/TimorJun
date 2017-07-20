@@ -51,6 +51,9 @@ public class JDProductController {
         }
         return stringObjectHashMap;
     }
+    
+    
+    
     /**
      * 获取分页请求
      */

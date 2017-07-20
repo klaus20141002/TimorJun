@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.timorjun.base.common.dto.JsonData;
+import com.timorjun.base.constant.CommonConstant;
 import com.timorjun.base.util.DateUtil;
 import com.timorjun.taobao.model.TaobaoDailyChooiseItem;
 import com.timorjun.taobao.model.TaobaoFavoriteItem;
@@ -51,11 +52,10 @@ public class DataImportController {
 		HSSFWorkbook book = null;
 		try {
 			List<TaobaoDailyChooiseItem> list = new ArrayList<TaobaoDailyChooiseItem>();
-
-			book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile("e://精选优质商品清单(内含优惠券)-2017-07-10.xls")));
+			logger.info("start handle filename {}",CommonConstant.GOODS_TAOBAO_FILEPATH+filename);
+			book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile(CommonConstant.GOODS_TAOBAO_FILEPATH+filename)));
 
 			HSSFSheet sheet = book.getSheetAt(0);
-
 			for(int i=1; i<sheet.getLastRowNum()+1; i++) {
 				TaobaoDailyChooiseItem t = new TaobaoDailyChooiseItem();
 			    HSSFRow row = sheet.getRow(i);
@@ -112,6 +112,7 @@ public class DataImportController {
 			    t.setCoupon_click_url(coupon_click_url);
 			    t.setLast_update_time(new Date());
 			    list.add(t);
+			    logger.info("data {} , is {}",i,t);
 			}
 
 			logger.info("共有 " + list.size() + " 条数据：");
@@ -140,7 +141,9 @@ public class DataImportController {
 			msg = "发生错误";
 		} finally {
 			try {
-				book.close();
+				if(book!= null) {
+					book.close();
+				}
 			} catch (IOException e) {
 				logger.error("close book {}",e);
 			}
@@ -171,7 +174,7 @@ public class DataImportController {
 		try {
 			List<TaobaoFavoriteItem> list = new ArrayList<TaobaoFavoriteItem>();
 
-			book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile("e://测试-2017-07-08.xls")));
+			book = new HSSFWorkbook(new FileInputStream(ResourceUtils.getFile(CommonConstant.GOODS_TAOBAO_FILEPATH+filename)));
 
 			HSSFSheet sheet = book.getSheetAt(0);
 
