@@ -34,37 +34,21 @@ public class TaobaoFavoriteItem {
 	
 	@Id
 	private long num_iid; // 商品id
-	private long favorites_id; // 选品库id
 	private String title; // 商品title
 	@Column(name="pict_url",length=500)
 	private String pict_url; // 商品主图
 	@Column(name="item_url",length=500)
 	private String item_url; // 商品地址
-	private String shop_title; // 店名
-	private String reserve_price; // 商品一口价格
-	private String zk_final_price; // 商品折扣价格
-	private String zk_final_price_wap; // 无线折扣价，即宝贝在无线上的实际售卖价格。
-	private String user_type; // 卖家类型，0表示集市，1表示商城
-	private String provcity; // 宝贝所在地， 杭州
-	private Long seller_id; // 卖家id
-	private String seller_wanwan; // 卖家旺旺
-	private String nick; // 卖家昵称
-	private Integer volume; // 30天销量
-	private String commission_rate; // 佣金比率(%)
-	private String commission_money; // 通用佣金
-	private String tk_rate; // 收入比例，举例，取值为20.00，表示比例20.00%
-	private String tk_money; // 活动佣金
-	private String event_state ;
-	private Date event_start_time; // 2015-01-01 00:00:00 招商活动开始时间； 如果该宝贝取自普通选品组，则取值为1970-01-01 00:00:00；
-	private Date event_end_time; // 2015-01-01 00:00:00 招行活动的结束时间；
+	private String category; // 后台一级类目
 	@Column(name="click_url",length=2000)
 	private String click_url; // 淘客地址 实际分销地址
-	@Column(name="click_long_url",length=2000)
-	private String click_long_url; // 淘客地址 实际分销地址 如果该宝贝取自普通的选品组，则取值为1970-01-01 00:00:00
-	private String status; // 宝贝状态，0失效，1有效；注：失效可能是宝贝已经下线或者是被处罚不能在进行推广
-	private String type; // 宝贝类型，1 普通商品 2 鹊桥高佣金商品，3 定向招商商品
-	private String category; // 后台一级类目
-	private String taokouling; // 淘口令(30天内有效)
+	private String zk_final_price; // 商品折扣价格
+	private Integer volume; // 30天销量
+	private String tk_rate; // 收入比例，举例，取值为20.00，表示比例20.00%
+	private String tk_money; // 活动佣金
+	private String seller_wanwan; // 卖家旺旺
+	private Long seller_id; // 卖家id
+	private String shop_title; // 店名
 	@Column(name="coupon_click_url",length=2000)
 	private String coupon_click_url;// 商品优惠券推广链接
 	@Column(name="coupon_click_long_url",length=2000)
@@ -75,8 +59,24 @@ public class TaobaoFavoriteItem {
 	private Long coupon_remain_count;// 优惠券剩余量
 	private Date coupon_start_time;// 优惠券开始时间
 	private Date coupon_end_time;// 优惠券结束时间
+	private String reserve_price; // 商品一口价格
+	private String zk_final_price_wap; // 无线折扣价，即宝贝在无线上的实际售卖价格。
+	private String user_type; // 卖家类型，0表示集市，1表示商城
+	private String provcity; // 宝贝所在地， 杭州
+	private String nick; // 卖家昵称
+	private String commission_rate; // 佣金比率(%)
+	private String commission_money; // 通用佣金
+	private String event_state ;
+	private Date event_start_time; // 2015-01-01 00:00:00 招商活动开始时间； 如果该宝贝取自普通选品组，则取值为1970-01-01 00:00:00；
+	private Date event_end_time; // 2015-01-01 00:00:00 招行活动的结束时间；
+	@Column(name="click_long_url",length=2000)
+	private String click_long_url; // 淘客地址 实际分销地址 如果该宝贝取自普通的选品组，则取值为1970-01-01 00:00:00
+	private String status; // 宝贝状态，0失效，1有效；注：失效可能是宝贝已经下线或者是被处罚不能在进行推广
+	private String type; // 宝贝类型，1 普通商品 2 鹊桥高佣金商品，3 定向招商商品
+	private String taokouling; // 淘口令(30天内有效)
 	private Date create_time;// add to database时间
 	private Date last_update_time;// last update 时间
+	private long favorites_id; // 选品库id
 	
 	public TaobaoFavoriteItem() { 
 		

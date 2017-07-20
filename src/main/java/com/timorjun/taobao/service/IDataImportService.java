@@ -21,5 +21,13 @@ public interface IDataImportService {
 	
 	
 	public Page<TaobaoDailyChooiseItem> queryTaobaoDailyChooiseItemList(Pageable pageable) ;
+	
+	
+	
+	
+	
+	public List<String> getGoodsDetailImages() ;
+	
+	
 
 }

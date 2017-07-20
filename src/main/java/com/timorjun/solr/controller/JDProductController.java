@@ -16,17 +16,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.timorjun.base.common.dto.JsonData;
 import com.timorjun.solr.domain.Product;
 import com.timorjun.solr.service.ProductService;
+import com.timorjun.taobao.service.IDataImportService;
 
 /**
  * 京东商品搜索
  */
 @Controller
+@RequestMapping("/s")
 public class JDProductController {
 
     @Autowired
     ProductService productService;
+    @Autowired
+    private IDataImportService dataImportService;
+    
 
     @RequestMapping(value = "/index", method = RequestMethod.GET)
     public String tosearch() {
@@ -109,4 +115,20 @@ public class JDProductController {
         PageRequest pageRequest = new PageRequest(page, size, sort);
         return pageRequest;
     }
+    
+    
+    
+    
+   
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
 }
