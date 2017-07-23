@@ -34,6 +34,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import com.timorjun.home.controller.HomeController;
 
 import us.codecraft.webmagic.Page;
@@ -75,7 +77,6 @@ public class TBGoodsProcessor implements PageProcessor {
 		logger.info("start pring details ---------------------------------------");
 		
 //		logger.info("result is {} ",html.$("#description")) ;
-//		logger.info("result is {} ",html.regex("https://img+?[jpgifn]"));
 		
 		//匹配 商品详情图的正则
 //		logger.info("result is {} ",html.regex("src=\"(https://img\\S+?[jpg]+?)\"").all());
@@ -83,13 +84,25 @@ public class TBGoodsProcessor implements PageProcessor {
 		//匹配商品数据的正则
 		logger.info("result is {} ",html.regex("Setup\\(([\\s\\S]+?)\\)"));
 		
+		JSONObject detail = JSON.parseObject(html.regex("Setup\\(([\\s\\S]+?)\\)").toString()) ;
 		
-//		List<String> details =  (List<String>) html.$("#description").$("p").xpath("/img/tidyText()").all();
+		if(detail == null) {
+			logger.error("爬去页面失败 ， {}", page.getUrl().toString());
+		}
+		String detailImgUrl = detail.getJSONObject("api").getString("httpsDescUrl") ;
+		logger.info(detailImgUrl);
+		logger.info(detail.getString("propertyPics"));
+		logger.info(detail.getJSONObject("valItemInfo").getString("skuList"));
+		String rawText = null;
+		//http://desc.alicdn.com/i5/550/020/551026213720/TB1ZxM6RVXXXXXpXVXX8qtpFXlX.desc%7Cvar%5Edesc%3Bsign%5E7f9ce29736bceaabadcd8dbbaf53a88d%3Blang%5Egbk%3Bt%5E1500738777
+		//http://desc.alicdn.com/i5/550/020/551026213720/TB1ZxM6RVXXXXXpXVXX8qtpFXlX.desc%7Cvar%5Edesc%3Bsign%5E7f9ce29736bceaabadcd8dbbaf53a88d%3Blang%5Egbk%3Bt%5E1500738777
+		Html detailHtml = new Html(UrlUtils.fixAllRelativeHrefs(rawText, "http:"+detailImgUrl));
 		
-		logger.info("start pring details ---------------------------------------");
-//		for(String i : details) {
-//			System.out.println(i);
-//		}
+		List<String> details = detailHtml.regex("src=\"(https://img\\S+?[jpg]+?)\"").all() ;
+		
+		for(String i : details) {
+			logger.info("img is :", i);
+		}
 		
 		
 	}
