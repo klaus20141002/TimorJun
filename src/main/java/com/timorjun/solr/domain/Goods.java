@@ -29,8 +29,7 @@ public class Goods {
     @Field
     private Date update;
     
-    
-    
+      
     private String brand ; //品牌
 
 //    public List<String> getCategory() {
