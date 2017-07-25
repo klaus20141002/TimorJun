@@ -57,8 +57,12 @@
 		    <artifactId>mysql-connector-java</artifactId>
 		</dependency>
 		
-		
-		
+		<dependency>
+	      <groupId>com.alibaba</groupId>
+	      <artifactId>druid</artifactId>
+	      <version>1.0.25</version>
+	    </dependency>
+			
 		
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -96,7 +100,7 @@
 		    <artifactId>poi-ooxml</artifactId>
 		    <version>3.16</version>
 		</dependency>
-		
+
 
 	</dependencies>
 
