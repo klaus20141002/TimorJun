@@ -18,15 +18,20 @@
  *****************************************************************************/
 package com.timorjun.taobao.repository;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import com.timorjun.taobao.model.TaobaoDailyChooiseItem;
 
 /**
  *
  */
+
+//@NamedQuery("")
 public interface TaobaoDailyChooseRepository extends JpaRepository<TaobaoDailyChooiseItem,Long>{
 	
-	
-
+	@Query("select u from TaobaoDailyChooiseItem u where u.coupon_end_time > now() ")
+	Page<TaobaoDailyChooiseItem> findAll(Pageable page);
 }

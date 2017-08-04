@@ -19,6 +19,7 @@
 package com.timorjun.solr.webmagic;
 
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.net.URLConnection;
@@ -28,9 +29,9 @@ import javax.management.JMException;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
-import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.client.CloseableHttpClient;
+import org.apache.http.impl.client.HttpClients;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -66,23 +67,15 @@ public class TBGoodsProcessor implements PageProcessor {
 	@Override
 	public void process(Page page) {
 		
-		
-		//logger.info("html is {}",page.getHtml());
-		
-//		page.setHtml(new Html(loadPageContent(page.getUrl().toString(),"Download TM goods")));
-		
-		
 		Html html = page.getHtml();
 		
 		logger.info("start pring details ---------------------------------------");
-		
-//		logger.info("result is {} ",html.$("#description")) ;
-		
+		//logger.info("result is {} ",html.$("#description")) ;
 		//匹配 商品详情图的正则
-//		logger.info("result is {} ",html.regex("src=\"(https://img\\S+?[jpg]+?)\"").all());
+		//logger.info("result is {} ",html.regex("src=\"(https://img\\S+?[jpg]+?)\"").all());
 		
 		//匹配商品数据的正则
-		logger.info("result is {} ",html.regex("Setup\\(([\\s\\S]+?)\\)"));
+		//logger.info("result is {} ",html.regex("Setup\\(([\\s\\S]+?)\\)"));
 		
 		JSONObject detail = JSON.parseObject(html.regex("Setup\\(([\\s\\S]+?)\\)").toString()) ;
 		
@@ -90,19 +83,10 @@ public class TBGoodsProcessor implements PageProcessor {
 			logger.error("爬去页面失败 ， {}", page.getUrl().toString());
 		}
 		String detailImgUrl = detail.getJSONObject("api").getString("httpsDescUrl") ;
-		logger.info(detailImgUrl);
-		logger.info(detail.getString("propertyPics"));
-		logger.info(detail.getJSONObject("valItemInfo").getString("skuList"));
-		String rawText = null;
-		//http://desc.alicdn.com/i5/550/020/551026213720/TB1ZxM6RVXXXXXpXVXX8qtpFXlX.desc%7Cvar%5Edesc%3Bsign%5E7f9ce29736bceaabadcd8dbbaf53a88d%3Blang%5Egbk%3Bt%5E1500738777
-		//http://desc.alicdn.com/i5/550/020/551026213720/TB1ZxM6RVXXXXXpXVXX8qtpFXlX.desc%7Cvar%5Edesc%3Bsign%5E7f9ce29736bceaabadcd8dbbaf53a88d%3Blang%5Egbk%3Bt%5E1500738777
-		Html detailHtml = new Html(UrlUtils.fixAllRelativeHrefs(rawText, "http:"+detailImgUrl));
 		
+		Html detailHtml = downLoadHtml("https:"+detailImgUrl, "download goods detail", "gb2312");
 		List<String> details = detailHtml.regex("src=\"(https://img\\S+?[jpg]+?)\"").all() ;
-		
-		for(String i : details) {
-			logger.info("img is :", i);
-		}
+		logger.info("img result is :{}",String.join("&", details));
 		
 		
 	}
@@ -150,7 +134,7 @@ public class TBGoodsProcessor implements PageProcessor {
 	
 	public String downLoadContent(String url, String taskDesc, String charset){
 		// "gb2312"
-        HttpClient client = new DefaultHttpClient(); // HttpClients.custom().setDefaultCookieStore( cookieStore ).build(); // new DefaultHttpClient();
+        CloseableHttpClient client = HttpClients.custom().build(); 
         StringBuffer result = new StringBuffer();
         try {
 			 HttpGet request = new HttpGet(url);
@@ -165,6 +149,11 @@ public class TBGoodsProcessor implements PageProcessor {
 			logger.error(" 异常！页面信息爬取失败 ！任务类型描述={},goodsUrl={} ,Exception {}",taskDesc,url , e);
 			return null;
 		} finally {
+			try {
+				client.close();
+			} catch (IOException e) {
+				logger.error("CloseableHttpClient close IOException {}",e);
+			}
 		}
        
 		return result.toString();

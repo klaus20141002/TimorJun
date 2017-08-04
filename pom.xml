@@ -51,6 +51,11 @@
 			<artifactId>spring-boot-starter-data-jpa</artifactId>
 		</dependency>
 		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		
 		<!-- https://mvnrepository.com/artifact/mysql/mysql-connector-java -->
 		<dependency>
 		    <groupId>mysql</groupId>
@@ -63,11 +68,11 @@
 	      <version>1.0.25</version>
 	    </dependency>
 			
-		
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-thymeleaf</artifactId>
-		</dependency>
+		<!--Gson-->    
+        <dependency>    
+            <groupId>com.google.code.gson</groupId>    
+            <artifactId>gson</artifactId>    
+        </dependency>
 		
 
 		<!-- webmagic java爬虫 0.6.1版本需要额外配置就没使用 -->
@@ -101,7 +106,10 @@
 		    <version>3.16</version>
 		</dependency>
 
-
+		<dependency>
+			<groupId>org.springframework.data</groupId>
+			<artifactId>spring-data-redis</artifactId>
+		</dependency>
 	</dependencies>
 
 	<build>

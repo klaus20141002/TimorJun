@@ -37,20 +37,20 @@ public class JobConfig {
     private Integer count2 = 1;
   
 
-    @Scheduled(fixedRate = 5000)
-    public void reportCurrentTime() throws InterruptedException {
-        System.out.println(String.format("---第%s次执行，当前时间为：%s", count0++, dateFormat.format(new Date())));
-    }
-
-    @Scheduled(fixedDelay = 5000)
-    public void reportCurrentTimeAfterSleep() throws InterruptedException {
-        System.out.println(String.format("===第%s次执行，当前时间为：%s", count1++, dateFormat.format(new Date())));
-    }
-
-    @Scheduled(cron = "30 * * * * *")
-    public void reportCurrentTimeCron() throws InterruptedException {
-        System.out.println(String.format("+++第%s次执行，当前时间为：%s", count2++, dateFormat.format(new Date())));
-    }
+//    @Scheduled(fixedRate = 5000)
+//    public void reportCurrentTime() throws InterruptedException {
+//        System.out.println(String.format("---第%s次执行，当前时间为：%s", count0++, dateFormat.format(new Date())));
+//    }
+//
+//    @Scheduled(fixedDelay = 5000)
+//    public void reportCurrentTimeAfterSleep() throws InterruptedException {
+//        System.out.println(String.format("===第%s次执行，当前时间为：%s", count1++, dateFormat.format(new Date())));
+//    }
+//
+//    @Scheduled(cron = "30 * * * * *")
+//    public void reportCurrentTimeCron() throws InterruptedException {
+//        System.out.println(String.format("+++第%s次执行，当前时间为：%s", count2++, dateFormat.format(new Date())));
+//    }
 	
 	
 
