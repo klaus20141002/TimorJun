@@ -24,6 +24,7 @@ import com.timorjun.base.common.dto.JsonData;
 import com.timorjun.base.constant.CommonConstant;
 import com.timorjun.base.util.DateUtil;
 import com.timorjun.taobao.model.TaobaoDailyChooiseItem;
+import com.timorjun.taobao.model.TaobaoDailyChooiseItemCache;
 import com.timorjun.taobao.model.TaobaoFavoriteItem;
 import com.timorjun.taobao.service.IDataImportService;
 
@@ -38,7 +39,25 @@ public class DataImportController {
 	@Autowired
 	private IDataImportService dataImportService ;
 	
+	@ResponseBody
+	@RequestMapping("/cache/set")
+	public JsonData testCacheSet() {
+		TaobaoDailyChooiseItemCache entity = new TaobaoDailyChooiseItemCache() ;
+		entity.setNum_iid(12312312L);
+		entity.setCategory("closes");
+		entity.setClick_url("http://timorjun.com");
+		entity.setTitle("timorjun");
+		entity.setVolume(1000);
+		entity.setZk_final_price("34.21");
+		return JsonData.success(dataImportService.cacheDailyGoods(entity), "success", 0);
+	}
 	
+	
+	@ResponseBody
+	@RequestMapping("/cache/get")
+	public JsonData testCacheGet() {
+		return JsonData.success(dataImportService.getDailyGoodsFromCache("12312312"), "success", 0);
+	}
 	
 	
 	/**

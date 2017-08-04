@@ -12,8 +12,10 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.timorjun.taobao.model.TaobaoDailyChooiseItem;
+import com.timorjun.taobao.model.TaobaoDailyChooiseItemCache;
 import com.timorjun.taobao.model.TaobaoFavoriteItem;
 import com.timorjun.taobao.repository.TaobaoDailyChooseRepository;
+import com.timorjun.taobao.repository.TaobaoDailyChooseRepositoryCache;
 import com.timorjun.taobao.repository.TaobaoFavoriteRepository;
 import com.timorjun.taobao.service.IDataImportService;
 
@@ -26,8 +28,9 @@ public class DataImportServiceImpl implements IDataImportService{
 	@Autowired
 	private TaobaoFavoriteRepository taobaoFavoriteRepository; 
 	@Autowired
-	
 	private TaobaoDailyChooseRepository taobaoDailyChooseRepository; 
+	@Autowired
+	private TaobaoDailyChooseRepositoryCache taobaoDailyChooseRepositoryCache ;
 	
 	/**
 	 * {@inheritDoc} 
@@ -103,6 +106,33 @@ public class DataImportServiceImpl implements IDataImportService{
 	}
 	
 	
+	
+	/**
+	 * {@inheritDoc} 
+	 * overridden:
+	 * @Date        :      2017年8月5日
+	 * @see com.timorjun.taobao.service.IDataImportService#cacheDailyGoods(com.timorjun.taobao.model.TaobaoDailyChooiseItemCache)
+	**/
+	@Override
+	public boolean cacheDailyGoods(TaobaoDailyChooiseItemCache entity) {
+		TaobaoDailyChooiseItemCache result = taobaoDailyChooseRepositoryCache.save(entity);
+		logger.info("result is {}" , result);
+		return true;
+	}
+	
+	
+	/**
+	 * {@inheritDoc} 
+	 * overridden:
+	 * @Date        :      2017年8月5日
+	 * @see com.timorjun.taobao.service.IDataImportService#getDailyGoodsFromCache(java.lang.String)
+	**/
+	@Override
+	public TaobaoDailyChooiseItemCache getDailyGoodsFromCache(String id) {
+		
+		logger.info("result is {}" , taobaoDailyChooseRepositoryCache.findOne(id));
+		return taobaoDailyChooseRepositoryCache.findOne(id);
+	}
 	
 
 }

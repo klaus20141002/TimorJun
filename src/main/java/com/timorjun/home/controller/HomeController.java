@@ -16,6 +16,9 @@ import com.timorjun.home.dto.HomeInfoDto;
 import com.timorjun.taobao.model.TaobaoDailyChooiseItem;
 import com.timorjun.taobao.service.IDataImportService;
 
+import redis.clients.jedis.Jedis;
+import redis.clients.jedis.JedisPool;
+
 @RestController
 @RequestMapping("/home")
 public class HomeController {
@@ -29,9 +32,15 @@ public class HomeController {
 	@Autowired
 	private IRedisService redisService ;
 	
+	@Autowired  
+    private JedisPool jedisPool;
+	
 	@RequestMapping("/redis/set")  
 	public JsonData redisSet(@RequestParam("value")String value){  
 	    redisService.set("name", value);
+	    
+	    Jedis reids  = jedisPool.getResource() ;
+//	    reids.s
 	    return JsonData.success(null, "success", 0)  ;
 	}  
 	
