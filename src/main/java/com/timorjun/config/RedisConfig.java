@@ -24,42 +24,71 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.data.redis.connection.jedis.JedisConnectionFactory;
-import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.StringRedisTemplate;
 
+import redis.clients.jedis.JedisPool;
 import redis.clients.jedis.JedisPoolConfig;
 
 /**
  * redis config
  */
 @Configuration  
-@EnableAutoConfiguration 
+@EnableAutoConfiguration  
+@ConfigurationProperties(prefix = "spring.redis")
 public class RedisConfig {
-	private static final Logger logger = LoggerFactory.getLogger( RedisConfig.class );
+	private static final Logger logger = LoggerFactory.getLogger( RedisConfig.class );  
     
+    private String hostName;  
+  
+    private int port;  
+  
+    private String password;  
+  
+    private int timeout;  
+      
     @Bean  
-    @ConfigurationProperties(prefix="spring.redis")  
     public JedisPoolConfig getRedisConfig(){  
         JedisPoolConfig config = new JedisPoolConfig();  
         return config;  
     }  
       
     @Bean  
-    @ConfigurationProperties(prefix="spring.redis")  
-    public JedisConnectionFactory getConnectionFactory(){  
-        JedisConnectionFactory factory = new JedisConnectionFactory();  
+    public JedisPool getJedisPool(){  
         JedisPoolConfig config = getRedisConfig();  
-        factory.setPoolConfig(config);  
-        logger.info("JedisConnectionFactory bean init success.");  
-        return factory;  
+        JedisPool pool = new JedisPool(config,hostName,port,timeout,password);  
+        logger.info("init JredisPool ...");  
+        return pool;  
     }  
-      
-      
-    @Bean  
-    public RedisTemplate<?, ?> getRedisTemplate(){  
-        RedisTemplate<?,?> template = new StringRedisTemplate(getConnectionFactory());  
-        return template;  
-    } 
+  
+    public String getHostName() {  
+        return hostName;  
+    }  
+  
+    public void setHostName(String hostName) {  
+        this.hostName = hostName;  
+    }  
+  
+    public int getPort() {  
+        return port;  
+    }  
+  
+    public void setPort(int port) {  
+        this.port = port;  
+    }  
+  
+    public String getPassword() {  
+        return password;  
+    }  
+  
+    public void setPassword(String password) {  
+        this.password = password;  
+    }  
+  
+    public int getTimeout() {  
+        return timeout;  
+    }  
+  
+    public void setTimeout(int timeout) {  
+        this.timeout = timeout;  
+    }
 
 }

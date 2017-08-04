@@ -18,25 +18,17 @@
  *****************************************************************************/
 package com.timorjun.base.service;
 
-import java.util.List;
+import redis.clients.jedis.Jedis;
 
 /**
  *
  */
 public interface IRedisService {
-	public boolean set(String key, String value);  
-    
+	public Jedis getResource();  
+	  
+    public void returnResource(Jedis jedis);  
+  
+    public void set(String key, String value);  
+  
     public String get(String key);  
-      
-    public boolean expire(String key,long expire);  
-      
-    public <T> boolean setList(String key ,List<T> list);  
-      
-    public <T> List<T> getList(String key,Class<T> clz);  
-      
-    public long lpush(String key,Object obj);  
-      
-    public long rpush(String key,Object obj);  
-      
-    public String lpop(String key);  
 }

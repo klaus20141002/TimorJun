@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.timorjun.base.common.dto.JsonData;
+import com.timorjun.base.service.IRedisService;
 import com.timorjun.home.dto.BannerInfoDto;
 import com.timorjun.home.dto.HomeInfoDto;
 import com.timorjun.taobao.model.TaobaoDailyChooiseItem;
@@ -25,6 +26,20 @@ public class HomeController {
 	@Autowired
 	private IDataImportService dataImportService ;
 	
+	@Autowired
+	private IRedisService redisService ;
+	
+	@RequestMapping("/redis/set")  
+	public JsonData redisSet(@RequestParam("value")String value){  
+	    redisService.set("name", value);
+	    return JsonData.success(null, "success", 0)  ;
+	}  
+	
+	@RequestMapping("/redis/get")  
+	public JsonData redisGet(){  
+	    String name = redisService.get("name");  
+	    return JsonData.success(name, "success", 0)  ; 
+	}  
 	
 	
 	/**
